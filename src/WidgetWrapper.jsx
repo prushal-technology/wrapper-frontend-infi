@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 const WidgetWrapper = () => {
   const [data, setData] = useState(null);
+  const apiUrl = 'http://localhost:8000/api/widget/'; // replace with your API
 
-  // Internal API URL — no need to pass externally
-  const apiUrl = 'http://localhost:8000/api/widget/'; // replace with live API URL
+  console.log("WidgetWrapper rendered"); // <--- Debug
 
   useEffect(() => {
+    console.log("Fetching data from API:", apiUrl); // <--- Debug
     fetch(apiUrl)
       .then(res => res.json())
-      .then(setData)
+      .then((resData) => {
+        console.log("Data received from API:", resData); // <--- Debug
+        setData(resData);
+      })
       .catch(err => console.error('Widget fetch error:', err));
   }, [apiUrl]);
 
